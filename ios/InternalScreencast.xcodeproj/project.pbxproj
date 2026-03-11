@@ -1,0 +1,551 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F7811A3ACBD2A62FFB8FE35 /* Pods_BroadcastExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7DF7E01C2CA23433C2A35F /* Pods_BroadcastExtension.framework */; };
+		3D2B5430FD4DE605660842FC /* LGTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78BEE6AEE46AB44CA808BB /* LGTVController.swift */; };
+		54CAA1E4B97195897CA50643 /* SSDPDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A2BAE40777C6C1BE00B6C5 /* SSDPDiscovery.swift */; };
+		6A70D3DDAFC609000B6780C6 /* BroadcastExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DCD6C99E7E882056547B5203 /* BroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8E23876B65796DEC50F4D24D /* InternalScreencastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E506C0C38BFA5F7D7C0768 /* InternalScreencastApp.swift */; };
+		B88BC7482EB42C1F02E3376B /* Pods_InternalScreencast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F95B28D12790969E0FEDFB /* Pods_InternalScreencast.framework */; };
+		DE855E2CF069770B62C9E01D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB72F300ABF33540787186 /* ContentView.swift */; };
+		E37987B1583D31E564F021C1 /* EmbeddedHTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546971A7882B6F6946131FD5 /* EmbeddedHTTPServer.swift */; };
+		E7D6106E2ED234F936FE815B /* EmbeddedSignalingServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED31598611BF1A005423C2C5 /* EmbeddedSignalingServer.swift */; };
+		FC24CC5A6567C44C42C5DF18 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D7F405DC53A8D631AD063 /* SampleHandler.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		985BC404C6EA982C9D199F6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E10A6D1C6558569EC0CF11B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5643EFE3E531FA2824FDD75F;
+			remoteInfo = BroadcastExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ADA5431EE099A69385B45D1E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6A70D3DDAFC609000B6780C6 /* BroadcastExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		020DE4FDA499408BE9DBD4B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		035FB3DAC4BED7E08F869E9F /* Pods-BroadcastExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BroadcastExtension.debug.xcconfig"; path = "Target Support Files/Pods-BroadcastExtension/Pods-BroadcastExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		0E78BEE6AEE46AB44CA808BB /* LGTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGTVController.swift; sourceTree = "<group>"; };
+		1CAB72F300ABF33540787186 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		289177421EE0888D9E28415B /* InternalScreencast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InternalScreencast.entitlements; sourceTree = "<group>"; };
+		4F7DF7E01C2CA23433C2A35F /* Pods_BroadcastExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BroadcastExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		546971A7882B6F6946131FD5 /* EmbeddedHTTPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedHTTPServer.swift; sourceTree = "<group>"; };
+		57F95B28D12790969E0FEDFB /* Pods_InternalScreencast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalScreencast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87A26B2BEE59D67D7FD9E3B1 /* InternalScreencast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternalScreencast.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A2BAE40777C6C1BE00B6C5 /* SSDPDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPDiscovery.swift; sourceTree = "<group>"; };
+		B86462894C3A85C7B07140F9 /* Pods-BroadcastExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BroadcastExtension.release.xcconfig"; path = "Target Support Files/Pods-BroadcastExtension/Pods-BroadcastExtension.release.xcconfig"; sourceTree = "<group>"; };
+		C7BA254324BD97417947667A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D177E75726E6B47232F1A328 /* BroadcastExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BroadcastExtension.entitlements; sourceTree = "<group>"; };
+		D1E506C0C38BFA5F7D7C0768 /* InternalScreencastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalScreencastApp.swift; sourceTree = "<group>"; };
+		D4350828F0ECBAE6D595DF58 /* Pods-InternalScreencast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalScreencast.release.xcconfig"; path = "Target Support Files/Pods-InternalScreencast/Pods-InternalScreencast.release.xcconfig"; sourceTree = "<group>"; };
+		D54D7F405DC53A8D631AD063 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		DCD6C99E7E882056547B5203 /* BroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED31598611BF1A005423C2C5 /* EmbeddedSignalingServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedSignalingServer.swift; sourceTree = "<group>"; };
+		FC13B7C9B296B1949D0424F5 /* Pods-InternalScreencast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalScreencast.debug.xcconfig"; path = "Target Support Files/Pods-InternalScreencast/Pods-InternalScreencast.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56B17DD2418E55306F23D857 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F7811A3ACBD2A62FFB8FE35 /* Pods_BroadcastExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C80A61E578670240A12AF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B88BC7482EB42C1F02E3376B /* Pods_InternalScreencast.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E399AF951D2D833D3B18678 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCD6C99E7E882056547B5203 /* BroadcastExtension.appex */,
+				87A26B2BEE59D67D7FD9E3B1 /* InternalScreencast.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22DA2486EFAEEB699236DDD8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				035FB3DAC4BED7E08F869E9F /* Pods-BroadcastExtension.debug.xcconfig */,
+				B86462894C3A85C7B07140F9 /* Pods-BroadcastExtension.release.xcconfig */,
+				FC13B7C9B296B1949D0424F5 /* Pods-InternalScreencast.debug.xcconfig */,
+				D4350828F0ECBAE6D595DF58 /* Pods-InternalScreencast.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2B8D92A638F8CB5C2530CF32 /* BroadcastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				D177E75726E6B47232F1A328 /* BroadcastExtension.entitlements */,
+				020DE4FDA499408BE9DBD4B6 /* Info.plist */,
+				D54D7F405DC53A8D631AD063 /* SampleHandler.swift */,
+			);
+			path = BroadcastExtension;
+			sourceTree = "<group>";
+		};
+		7291F51B84B01D1E5015F874 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F7DF7E01C2CA23433C2A35F /* Pods_BroadcastExtension.framework */,
+				57F95B28D12790969E0FEDFB /* Pods_InternalScreencast.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9AFE48845CCF13F917AABB05 = {
+			isa = PBXGroup;
+			children = (
+				2B8D92A638F8CB5C2530CF32 /* BroadcastExtension */,
+				FC547B34C79AABEAE23E8C50 /* InternalScreencast */,
+				0E399AF951D2D833D3B18678 /* Products */,
+				22DA2486EFAEEB699236DDD8 /* Pods */,
+				7291F51B84B01D1E5015F874 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FC547B34C79AABEAE23E8C50 /* InternalScreencast */ = {
+			isa = PBXGroup;
+			children = (
+				1CAB72F300ABF33540787186 /* ContentView.swift */,
+				546971A7882B6F6946131FD5 /* EmbeddedHTTPServer.swift */,
+				ED31598611BF1A005423C2C5 /* EmbeddedSignalingServer.swift */,
+				C7BA254324BD97417947667A /* Info.plist */,
+				289177421EE0888D9E28415B /* InternalScreencast.entitlements */,
+				D1E506C0C38BFA5F7D7C0768 /* InternalScreencastApp.swift */,
+				0E78BEE6AEE46AB44CA808BB /* LGTVController.swift */,
+				93A2BAE40777C6C1BE00B6C5 /* SSDPDiscovery.swift */,
+			);
+			path = InternalScreencast;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5643EFE3E531FA2824FDD75F /* BroadcastExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AC0C42015C49ABD96D7897C /* Build configuration list for PBXNativeTarget "BroadcastExtension" */;
+			buildPhases = (
+				E60BF6716C0661A95DB85990 /* [CP] Check Pods Manifest.lock */,
+				E57B97E299CDAB54442E344D /* Sources */,
+				56B17DD2418E55306F23D857 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BroadcastExtension;
+			productName = BroadcastExtension;
+			productReference = DCD6C99E7E882056547B5203 /* BroadcastExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		5A6F7BD9D723B1A32183B7CF /* InternalScreencast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA90000A76285618261333C7 /* Build configuration list for PBXNativeTarget "InternalScreencast" */;
+			buildPhases = (
+				8FC8221BE8D3533B1758F3E7 /* [CP] Check Pods Manifest.lock */,
+				F1E4EBE787334839D57201A4 /* Sources */,
+				ADA5431EE099A69385B45D1E /* Embed Foundation Extensions */,
+				75C80A61E578670240A12AF0 /* Frameworks */,
+				138C3D305C58A8AEF1B9554C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				951CB1A8BDBBD199D8598058 /* PBXTargetDependency */,
+			);
+			name = InternalScreencast;
+			productName = InternalScreencast;
+			productReference = 87A26B2BEE59D67D7FD9E3B1 /* InternalScreencast.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E10A6D1C6558569EC0CF11B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = C27214833F55AC162B542C7F /* Build configuration list for PBXProject "InternalScreencast" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 9AFE48845CCF13F917AABB05;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0E399AF951D2D833D3B18678 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5643EFE3E531FA2824FDD75F /* BroadcastExtension */,
+				5A6F7BD9D723B1A32183B7CF /* InternalScreencast */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		138C3D305C58A8AEF1B9554C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalScreencast/Pods-InternalScreencast-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalScreencast/Pods-InternalScreencast-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalScreencast/Pods-InternalScreencast-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FC8221BE8D3533B1758F3E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InternalScreencast-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E60BF6716C0661A95DB85990 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BroadcastExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E57B97E299CDAB54442E344D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC24CC5A6567C44C42C5DF18 /* SampleHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E4EBE787334839D57201A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE855E2CF069770B62C9E01D /* ContentView.swift in Sources */,
+				E37987B1583D31E564F021C1 /* EmbeddedHTTPServer.swift in Sources */,
+				E7D6106E2ED234F936FE815B /* EmbeddedSignalingServer.swift in Sources */,
+				8E23876B65796DEC50F4D24D /* InternalScreencastApp.swift in Sources */,
+				3D2B5430FD4DE605660842FC /* LGTVController.swift in Sources */,
+				54CAA1E4B97195897CA50643 /* SSDPDiscovery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		951CB1A8BDBBD199D8598058 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5643EFE3E531FA2824FDD75F /* BroadcastExtension */;
+			targetProxy = 985BC404C6EA982C9D199F6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1151BD2AE68B363E9D81E8FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		41B21FECCE52E468EEFF245E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC13B7C9B296B1949D0424F5 /* Pods-InternalScreencast.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = InternalScreencast/InternalScreencast.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = KCQJ4LUNM7;
+				INFOPLIST_FILE = InternalScreencast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.internal.screencast;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6F0C16D76AD73D9737EEB78A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B86462894C3A85C7B07140F9 /* Pods-BroadcastExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BroadcastExtension/BroadcastExtension.entitlements;
+				DEVELOPMENT_TEAM = KCQJ4LUNM7;
+				INFOPLIST_FILE = BroadcastExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.internal.screencast.broadcast;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		88FA6FF96148834ED8690A2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 035FB3DAC4BED7E08F869E9F /* Pods-BroadcastExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BroadcastExtension/BroadcastExtension.entitlements;
+				DEVELOPMENT_TEAM = KCQJ4LUNM7;
+				INFOPLIST_FILE = BroadcastExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.internal.screencast.broadcast;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B58474722E2124692EA98F30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E5ECA6C3F3CFA7FE55B4575F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4350828F0ECBAE6D595DF58 /* Pods-InternalScreencast.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = InternalScreencast/InternalScreencast.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = KCQJ4LUNM7;
+				INFOPLIST_FILE = InternalScreencast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.internal.screencast;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9AC0C42015C49ABD96D7897C /* Build configuration list for PBXNativeTarget "BroadcastExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88FA6FF96148834ED8690A2F /* Debug */,
+				6F0C16D76AD73D9737EEB78A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C27214833F55AC162B542C7F /* Build configuration list for PBXProject "InternalScreencast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B58474722E2124692EA98F30 /* Debug */,
+				1151BD2AE68B363E9D81E8FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA90000A76285618261333C7 /* Build configuration list for PBXNativeTarget "InternalScreencast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B21FECCE52E468EEFF245E /* Debug */,
+				E5ECA6C3F3CFA7FE55B4575F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E10A6D1C6558569EC0CF11B5 /* Project object */;
+}
