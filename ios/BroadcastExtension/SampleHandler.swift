@@ -84,9 +84,7 @@ class SampleHandler: RPBroadcastSampleHandler {
             ]
         )
 
-        if let settableFactory = encoderFactory as? RTCDefaultVideoEncoderFactory {
-            settableFactory.preferredCodec = h264Codec
-        }
+        encoderFactory.preferredCodec = h264Codec
 
         peerConnectionFactory = RTCPeerConnectionFactory(
             encoderFactory: encoderFactory,
@@ -231,11 +229,7 @@ class SampleHandler: RPBroadcastSampleHandler {
                   let sdpMid = candidateDict["sdpMid"] as? String else { return }
 
             let candidate = RTCIceCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-            peerConnection?.add(candidate, completionHandler: { error in
-                if let error = error {
-                    NSLog("InternalScreencast: Add ICE candidate error: \(error)")
-                }
-            })
+            peerConnection?.add(candidate)
 
         default:
             break
@@ -277,7 +271,7 @@ class SampleHandler: RPBroadcastSampleHandler {
 
     /// Tweak SDP for minimal latency: set max bitrate, disable remb estimation ramp-up
     private func applyLowLatencySDP(_ sdp: String) -> String {
-        var lines = sdp.components(separatedBy: "\r\n")
+        let lines = sdp.components(separatedBy: "\r\n")
         var result: [String] = []
 
         for line in lines {

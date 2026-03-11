@@ -149,7 +149,7 @@ struct ContentView: View {
                         latencyRow(label: "Decode + render", value: "~50ms")
                         Divider()
                         latencyRow(label: "Total estimate", value: "~116ms")
-                            .fontWeight(.semibold)
+                            .font(.caption.weight(.semibold))
                     }
                     .font(.caption)
                     .padding(.vertical, 4)
