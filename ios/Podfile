@@ -1,0 +1,11 @@
+platform :ios, '15.0'
+
+target 'InternalScreencast' do
+  use_frameworks!
+  pod 'GoogleWebRTC', '~> 1.1'
+end
+
+target 'BroadcastExtension' do
+  use_frameworks!
+  pod 'GoogleWebRTC', '~> 1.1'
+end

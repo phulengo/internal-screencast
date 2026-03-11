@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Screencast — Receiver</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+  #video {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  #status {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #888; font-family: -apple-system, sans-serif;
+    font-size: 1.5rem; text-align: center;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  #stats {
+    position: fixed; top: 12px; right: 12px;
+    background: rgba(0,0,0,0.8);
+    color: #0f0; font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 13px; padding: 12px 16px;
+    border-radius: 8px; line-height: 1.6;
+    display: none; min-width: 240px;
+    border: 1px solid rgba(0,255,0,0.2);
+  }
+  #stats .label { color: #888; }
+  #stats .warn { color: #ff0; }
+  #stats .bad { color: #f44; }
+
+  #reconnect-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #f44; color: #fff;
+    font-family: -apple-system, sans-serif;
+    text-align: center; padding: 8px;
+    font-size: 14px; display: none;
+  }
+</style>
+</head>
+<body>
+
+<video id="video" autoplay playsinline muted></video>
+<div id="status">Waiting for connection...</div>
+<div id="stats"></div>
+<div id="reconnect-bar">Connection lost — reconnecting...</div>
+
+<script>
+(() => {
+  const video = document.getElementById('video');
+  const statusEl = document.getElementById('status');
+  const statsEl = document.getElementById('stats');
+  const reconnectBar = document.getElementById('reconnect-bar');
+
+  let pc = null;
+  let ws = null;
+  let statsVisible = false;
+  let statsInterval = null;
+  let reconnectTimeout = null;
+
+  // Determine signaling server URL from current host
+  const signalingHost = location.hostname || 'localhost';
+  const signalingURL = `ws://${signalingHost}:8765`;
+
+  // --- Stats overlay (press S) ---
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 's' || e.key === 'S') {
+      statsVisible = !statsVisible;
+      statsEl.style.display = statsVisible ? 'block' : 'none';
+      if (statsVisible) startStatsPolling();
+      else stopStatsPolling();
+    }
+    // Press F for fullscreen
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  function startStatsPolling() {
+    stopStatsPolling();
+    statsInterval = setInterval(updateStats, 1000);
+  }
+
+  function stopStatsPolling() {
+    if (statsInterval) { clearInterval(statsInterval); statsInterval = null; }
+  }
+
+  async function updateStats() {
+    if (!pc) return;
+    try {
+      const stats = await pc.getStats();
+      let resolution = '—';
+      let fps = '—';
+      let bitrate = '—';
+      let jitter = '—';
+      let packetsLost = 0;
+      let packetsReceived = 0;
+      let bytesNow = 0;
+
+      stats.forEach((report) => {
+        if (report.type === 'inbound-rtp' && report.kind === 'video') {
+          if (report.frameWidth && report.frameHeight) {
+            resolution = `${report.frameWidth}×${report.frameHeight}`;
+          }
+          if (report.framesPerSecond !== undefined) {
+            fps = report.framesPerSecond;
+          }
+          if (report.jitter !== undefined) {
+            jitter = (report.jitter * 1000).toFixed(1);
+          }
+          packetsLost = report.packetsLost || 0;
+          packetsReceived = report.packetsReceived || 0;
+          bytesNow = report.bytesReceived || 0;
+        }
+      });
+
+      // Calculate bitrate from bytesReceived delta
+      if (window._lastBytes !== undefined) {
+        const deltaBits = (bytesNow - window._lastBytes) * 8;
+        bitrate = (deltaBits / 1_000_000).toFixed(2);
+      }
+      window._lastBytes = bytesNow;
+
+      const lossRate = packetsReceived > 0
+        ? ((packetsLost / (packetsReceived + packetsLost)) * 100).toFixed(1)
+        : '0.0';
+
+      const jitterClass = parseFloat(jitter) > 20 ? (parseFloat(jitter) > 50 ? 'bad' : 'warn') : '';
+      const lossClass = parseFloat(lossRate) > 2 ? (parseFloat(lossRate) > 5 ? 'bad' : 'warn') : '';
+
+      statsEl.innerHTML = `
+        <span class="label">Resolution:</span> ${resolution}<br>
+        <span class="label">FPS:</span> ${fps}<br>
+        <span class="label">Bitrate:</span> ${bitrate} Mbps<br>
+        <span class="label">Jitter:</span> <span class="${jitterClass}">${jitter} ms</span><br>
+        <span class="label">Packet loss:</span> <span class="${lossClass}">${lossRate}%</span><br>
+        <span class="label">Packets:</span> ${packetsReceived.toLocaleString()}
+      `;
+    } catch (e) { /* stats unavailable */ }
+  }
+
+  // --- WebRTC ---
+  function connect() {
+    if (reconnectTimeout) { clearTimeout(reconnectTimeout); reconnectTimeout = null; }
+
+    statusEl.style.opacity = '1';
+    statusEl.textContent = 'Connecting to signaling server...';
+
+    ws = new WebSocket(signalingURL);
+
+    ws.onopen = () => {
+      console.log('[Receiver] Connected to signaling server');
+      statusEl.textContent = 'Waiting for sender...';
+      reconnectBar.style.display = 'none';
+      ws.send(JSON.stringify({ type: 'register', role: 'receiver' }));
+    };
+
+    ws.onmessage = async (event) => {
+      const msg = JSON.parse(event.data);
+
+      if (msg.type === 'offer') {
+        console.log('[Receiver] Got offer, creating answer');
+        await handleOffer(msg);
+      } else if (msg.type === 'ice_candidate' && pc) {
+        try {
+          await pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
+        } catch (e) {
+          console.warn('[Receiver] ICE candidate error:', e);
+        }
+      }
+    };
+
+    ws.onclose = () => {
+      console.log('[Receiver] WebSocket closed');
+      scheduleReconnect();
+    };
+
+    ws.onerror = (e) => {
+      console.error('[Receiver] WebSocket error:', e);
+    };
+  }
+
+  async function handleOffer(msg) {
+    // Clean up previous connection
+    if (pc) { pc.close(); pc = null; }
+
+    pc = new RTCPeerConnection({
+      iceServers: [] // LAN only, no STUN/TURN
+    });
+
+    pc.ontrack = (event) => {
+      console.log('[Receiver] Got remote track');
+      video.srcObject = event.streams[0];
+      statusEl.style.opacity = '0';
+      video.play().catch(() => {});
+    };
+
+    pc.onicecandidate = (event) => {
+      if (event.candidate && ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'ice_candidate',
+          candidate: {
+            candidate: event.candidate.candidate,
+            sdpMLineIndex: event.candidate.sdpMLineIndex,
+            sdpMid: event.candidate.sdpMid
+          }
+        }));
+      }
+    };
+
+    pc.oniceconnectionstatechange = () => {
+      console.log('[Receiver] ICE state:', pc.iceConnectionState);
+      if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
+        statusEl.style.opacity = '1';
+        statusEl.textContent = 'Stream disconnected';
+        reconnectBar.style.display = 'block';
+      }
+    };
+
+    await pc.setRemoteDescription(new RTCSessionDescription({
+      type: 'offer',
+      sdp: msg.sdp
+    }));
+
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+
+    ws.send(JSON.stringify({
+      type: 'answer',
+      sdp: answer.sdp
+    }));
+  }
+
+  function scheduleReconnect() {
+    reconnectBar.style.display = 'block';
+    statusEl.style.opacity = '1';
+    statusEl.textContent = 'Reconnecting...';
+    reconnectTimeout = setTimeout(connect, 2000);
+  }
+
+  // --- Prevent sleep on TV browsers ---
+  function preventSleep() {
+    // Use a hidden video element with a short loop to prevent screen sleep
+    try {
+      if (navigator.wakeLock) {
+        navigator.wakeLock.request('screen').catch(() => {});
+      }
+    } catch (e) { /* Wake Lock not supported */ }
+  }
+
+  // --- Init ---
+  preventSleep();
+  connect();
+})();
+</script>
+</body>
+</html>

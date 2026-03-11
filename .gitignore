@@ -1,0 +1,23 @@
+# iOS
+ios/Pods/
+ios/*.xcworkspace
+ios/*.xcodeproj/xcuserdata/
+ios/build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
