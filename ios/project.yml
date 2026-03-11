@@ -1,0 +1,49 @@
+name: InternalScreencast
+options:
+  bundleIdPrefix: com.internal
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  InternalScreencast:
+    type: application
+    platform: iOS
+    sources:
+      - InternalScreencast
+    info:
+      path: InternalScreencast/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.internal.screencast
+        INFOPLIST_FILE: InternalScreencast/Info.plist
+        CODE_SIGN_ENTITLEMENTS: InternalScreencast/InternalScreencast.entitlements
+    entitlements:
+      path: InternalScreencast/InternalScreencast.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.internal.screencast
+    dependencies:
+      - target: BroadcastExtension
+
+  BroadcastExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - BroadcastExtension
+    info:
+      path: BroadcastExtension/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.internal.screencast.broadcast
+        INFOPLIST_FILE: BroadcastExtension/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BroadcastExtension/BroadcastExtension.entitlements
+    entitlements:
+      path: BroadcastExtension/BroadcastExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.internal.screencast
