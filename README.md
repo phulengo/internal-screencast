@@ -1,39 +1,52 @@
 # Internal Screencast
 
-Full screen mirroring from iPhone to any smart TV browser — sub-150ms latency on LAN.
+Full screen mirroring from iPhone to LG TV — sub-150ms latency, no laptop required.
 
-Built for internal use. Bypasses App Store restrictions and optimizes aggressively for low latency.
+Built for internal use. No App Store restrictions. Optimized for low latency on LAN.
 
-## Architecture
+## How It Works
 
 ```
-iPhone (ReplayKit) → H.264/WebRTC/UDP → TV Browser (WebRTC)
-                          ↕
-                  Signaling Server (WebSocket)
-                  (SDP + ICE relay only)
+iPhone                                    LG TV (webOS)
+┌─────────────────────┐                  ┌──────────────────┐
+│ ReplayKit Capture    │                  │ Built-in Browser │
+│        ↓             │                  │                  │
+│ H.264 (VideoToolbox) │  ── WebRTC ──→  │ receiver.html    │
+│        ↓             │     UDP          │ (auto-opened)    │
+│ Signaling Server     │  ← WebSocket →  │                  │
+│ HTTP Server          │  ── serves ──→  │                  │
+│ LG SSAP Controller   │  ── opens ───→  │                  │
+└─────────────────────┘                  └──────────────────┘
 ```
 
-Three components:
-
-| Component | Location | What it does |
-|-----------|----------|-------------|
-| **iOS App** | `ios/` | Captures screen via ReplayKit, encodes H.264 via VideoToolbox, streams over WebRTC |
-| **Signaling Server** | `signaling/` | Python WebSocket relay — coordinates SDP offers/answers and ICE candidates |
-| **TV Receiver** | `receiver/` | Single HTML file — receives WebRTC stream, renders fullscreen |
+Everything runs on the iPhone. The TV just opens a browser page.
 
 ## Quick Start
 
-```bash
-chmod +x start.sh
-./start.sh
-```
+1. Build and install the iOS app (see [ios/SETUP.md](ios/SETUP.md))
+2. Make sure iPhone and LG TV are on the same WiFi (5GHz recommended)
+3. Open the app — it auto-scans for your LG TV
+4. Tap your TV, then tap **Cast**
+5. Tap the broadcast button → select "Internal Screencast" → mirroring starts
 
-This starts the signaling server on `:8765` and serves the receiver on `:8080`.
+The app automatically:
+- Discovers your LG TV via SSDP
+- Starts embedded signaling + HTTP servers
+- Opens the receiver page on the TV's browser
+- Streams your screen over WebRTC
 
-Then:
-1. Open `http://<your-ip>:8080` on your TV browser
-2. Open the iOS app, enter your computer's LAN IP
-3. Tap the broadcast button to start mirroring
+## What's In The Box
+
+| File | Purpose |
+|------|---------|
+| `ios/InternalScreencast/ContentView.swift` | Main UI — TV discovery, cast control, status |
+| `ios/InternalScreencast/SSDPDiscovery.swift` | Finds LG TVs on the network via UPnP/SSDP |
+| `ios/InternalScreencast/LGTVController.swift` | Controls LG TV via SSAP (open browser, toast) |
+| `ios/InternalScreencast/EmbeddedSignalingServer.swift` | WebSocket relay for SDP/ICE (Network.framework) |
+| `ios/InternalScreencast/EmbeddedHTTPServer.swift` | Serves receiver.html to the TV browser |
+| `ios/BroadcastExtension/SampleHandler.swift` | ReplayKit → WebRTC H.264 pipeline |
+| `receiver/index.html` | Fullscreen WebRTC receiver + stats overlay |
+| `signaling/server.py` | Standalone Python signaling server (optional, for dev/debug) |
 
 ## Latency Budget
 
@@ -48,29 +61,37 @@ Then:
 
 ## Key Design Decisions
 
-- **ReplayKit → WebRTC direct pipeline**: No intermediate encoding step. ReplayKit's `CMSampleBuffer` feeds directly into WebRTC's VideoToolbox encoder.
-- **H.264 Baseline profile**: No B-frames means no frame reordering, which eliminates a common source of latency.
-- **No STUN/TURN**: LAN-only deployment means we skip ICE server lookups entirely.
-- **UDP transport**: WebRTC uses SRTP over UDP — dropped packets are skipped, not retransmitted, preventing stalls.
-- **4 Mbps bitrate**: Sufficient for 1080p screen content (text and UI compress efficiently in H.264).
+- **Fully self-contained**: No laptop or server needed. iPhone runs signaling + HTTP servers.
+- **Auto-discovery**: SSDP finds LG TVs automatically. No manual IP entry.
+- **LG SSAP integration**: Auto-opens the receiver in the TV's browser. One-tap experience.
+- **ReplayKit → WebRTC direct pipeline**: No intermediate encoding step.
+- **H.264 Baseline profile**: No B-frames, no frame reordering, minimum latency.
+- **No STUN/TURN**: LAN-only, no ICE server lookups.
+- **UDP transport**: Dropped packets skipped, not retransmitted.
 
 ## Requirements
 
-- **iOS**: iPhone running iOS 15+, Xcode 15+, CocoaPods
-- **Server**: Python 3.8+ with `websockets` package
-- **Receiver**: Any modern browser with WebRTC support (Chrome, Safari, Edge, Firefox)
-- **Network**: All devices on the same LAN (5GHz Wi-Fi recommended)
+- **iPhone**: iOS 15+, same WiFi as TV
+- **TV**: LG webOS Smart TV (2018+)
+- **Network**: 5GHz WiFi recommended
+- **Build**: Xcode 15+, CocoaPods
 
-## iOS Setup
+## TV Stats Overlay
 
-See [ios/SETUP.md](ios/SETUP.md) for detailed Xcode setup instructions.
-
-## Stats Overlay
-
-Press **S** on the TV browser to toggle a live stats overlay showing:
+Press **S** on the TV browser to toggle a live stats overlay:
 - Resolution and FPS
 - Bitrate (Mbps)
 - Jitter (ms)
 - Packet loss percentage
 
 Press **F** for fullscreen.
+
+## Standalone Server (Optional)
+
+For development/debugging, you can still run the Python signaling server separately:
+
+```bash
+chmod +x start.sh && ./start.sh
+```
+
+This starts the signaling server on `:8765` and serves the receiver on `:8080`.

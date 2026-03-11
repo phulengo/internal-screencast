@@ -139,16 +139,19 @@ class SampleHandler: RPBroadcastSampleHandler {
     // MARK: - Signaling
 
     private func connectSignaling() {
+        // Read the iPhone's own IP from App Group — the embedded signaling server
+        // runs on the same device, so we connect to ourselves on port 8765.
         guard let serverIP = UserDefaults(suiteName: SampleHandler.appGroupID)?.string(forKey: "signalingServerIP"),
               !serverIP.isEmpty else {
             finishBroadcastWithError(NSError(
                 domain: "InternalScreencast",
                 code: 1,
-                userInfo: [NSLocalizedDescriptionKey: "No signaling server IP configured. Open the app to set it."]
+                userInfo: [NSLocalizedDescriptionKey: "No server running. Open the app and tap Cast first."]
             ))
             return
         }
 
+        // Connect to the embedded signaling server on this device
         let urlString = "ws://\(serverIP):8765"
         guard let url = URL(string: urlString) else {
             finishBroadcastWithError(NSError(
