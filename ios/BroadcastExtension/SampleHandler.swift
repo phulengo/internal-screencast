@@ -127,7 +127,6 @@ class SampleHandler: RPBroadcastSampleHandler {
             let params = sender.parameters
             if let encoding = params.encodings.first {
                 encoding.maxBitrateBps = NSNumber(value: SampleHandler.videoBitrate)
-                encoding.maxFrameRate = NSNumber(value: SampleHandler.maxFPS)
             }
 
             // Disable bandwidth probing for faster start
@@ -232,11 +231,11 @@ class SampleHandler: RPBroadcastSampleHandler {
                   let sdpMid = candidateDict["sdpMid"] as? String else { return }
 
             let candidate = RTCIceCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-            peerConnection?.add(candidate) { error in
+            peerConnection?.add(candidate, completionHandler: { error in
                 if let error = error {
                     NSLog("InternalScreencast: Add ICE candidate error: \(error)")
                 }
-            }
+            })
 
         default:
             break
@@ -310,7 +309,7 @@ class SampleHandler: RPBroadcastSampleHandler {
 extension SampleHandler: RTCPeerConnectionDelegate {
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        NSLog("InternalScreencast: Signaling state: \(stateChanged.rawValue)")
+        NSLog("InternalScreencast: Signaling state changed")
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {}
